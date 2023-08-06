@@ -7,12 +7,16 @@ import type { Show } from "@/types";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { useAppDispatch } from "@/redux/hook";
+import { open, play, show } from "@/redux/modal-slice";
 
 interface HeroProps {
   shows: Show[];
 }
 
 const Hero = ({ shows }: HeroProps) => {
+  const dispatch = useAppDispatch();
+
   // randomize show on page render
   const [randomShow, setRandomShow] = useState<Show | null>(null);
   useEffect(() => {
@@ -58,6 +62,11 @@ const Hero = ({ shows }: HeroProps) => {
               <Button
                 aria-label="Play video"
                 className="h-auto gap-1.5 rounded"
+                onClick={() => {
+                  dispatch(open(true));
+                  dispatch(play(true));
+                  dispatch(show(randomShow));
+                }}
               >
                 <Icons.play
                   className="h-5 w-5 fill-current"

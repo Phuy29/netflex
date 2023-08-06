@@ -6,6 +6,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { cn } from "@/lib/utils";
 import ShowCard from "./show-card";
+import { useAppSelector } from "@/redux/hook";
+import { RootState } from "@/redux/store";
+import ShowModal from "./show-modal";
 
 interface ShowsContainerProps {
   shows: CategorizedShows[];
@@ -13,11 +16,13 @@ interface ShowsContainerProps {
 
 const ShowsContainer = ({ shows }: ShowsContainerProps) => {
   const path = usePathname();
+  const modalStore = useAppSelector((state: RootState) => state.modal);
 
   return (
     <div
       className={cn("w-full space-y-5 sm:space-y-10", path === "/" && "pt-24")}
     >
+      {modalStore.isOpen && <ShowModal />}
       {shows.map((item) => (
         <section aria-label="Carousel of shows" key={item.title}>
           {shows.length !== 0 && (

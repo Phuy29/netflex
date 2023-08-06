@@ -56,3 +56,36 @@ export type CategorizedShows = {
   title: string;
   shows?: Show[];
 };
+
+export type Genre = {
+  id: number;
+  name: string | null;
+};
+
+export type ShowWithGenreAndVideo = Show & {
+  genres: Genre[];
+  videos?: {
+    results: VideoResult[];
+  };
+};
+
+export type VideoResult = {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: VideoType;
+  official: boolean;
+  published_at: string;
+  id: string;
+};
+
+export type VideoType =
+  | "Bloopers"
+  | "Featurette"
+  | "Behind the Scenes"
+  | "Clip"
+  | "Trailer"
+  | "Teaser";
