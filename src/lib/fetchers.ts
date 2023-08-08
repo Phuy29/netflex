@@ -73,3 +73,45 @@ export async function getShows() {
     docs: docs?.results,
   };
 }
+
+export async function getNewAndPopularShows() {
+  const [popularTvRes, popularMovieRes, trendingTvRes, trendingMovieRes] =
+    await Promise.all([
+      fetch(
+        `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`
+      ),
+      fetch(
+        `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`
+      ),
+      fetch(
+        `https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`
+      ),
+      fetch(
+        `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`
+      ),
+    ]);
+
+  if (
+    !popularTvRes.ok ||
+    !popularMovieRes.ok ||
+    !trendingTvRes.ok ||
+    !trendingMovieRes.ok
+  ) {
+    throw new Error("Failed to fetch shows");
+  }
+
+  const [popularTvs, popularMovies, trendingTvs, trendingMovies] =
+    (await Promise.all([
+      popularTvRes.json(),
+      popularMovieRes.json(),
+      trendingTvRes.json(),
+      trendingMovieRes.json(),
+    ])) as { results: Show[] }[];
+
+  return {
+    popularTvs: popularTvs?.results,
+    popularMovies: popularMovies?.results,
+    trendingTvs: trendingTvs?.results,
+    trendingMovies: trendingMovies?.results,
+  };
+}

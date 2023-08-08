@@ -19,29 +19,9 @@ export const siteConfig: SiteConfig = {
       icon: Icons.home,
     },
     {
-      title: "TV Shows",
-      href: "/tv-shows",
-      icon: Icons.tvShow,
-    },
-    {
-      title: "Movies",
-      href: "/movies",
-      icon: Icons.movie,
-    },
-    {
       title: "New & Popular",
-      href: "/new-and-popular",
+      href: "/new-popular",
       icon: Icons.trendingUp,
-    },
-    {
-      title: "My List",
-      href: "/my-list",
-      icon: Icons.list,
-    },
-    {
-      title: "Notifications",
-      onClick: () => alert("🛹 Do a kickflip"),
-      icon: Icons.bell,
     },
   ],
   profileDropdownItems: [

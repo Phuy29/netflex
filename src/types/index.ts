@@ -89,3 +89,8 @@ export type VideoType =
   | "Clip"
   | "Trailer"
   | "Teaser";
+
+export enum MEDIA_TYPE {
+  movie,
+  tv,
+}
